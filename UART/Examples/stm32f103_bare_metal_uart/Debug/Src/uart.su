@@ -1,0 +1,10 @@
+uart.c:14:6:uart2_pin_conf	4	static
+uart.c:33:6:uart_boud_rate	4	static
+uart.c:43:6:uart_init	8	static
+uart.c:60:6:uart_tran_byte	16	static
+uart.c:66:10:uart_rec_byte	4	static
+uart.c:71:6:uart_tran_string	16	static
+uart.c:78:6:uart_tran_bin	24	static
+uart.c:93:6:uart_tran_dec	24	static
+uart.c:112:6:newlin_uart	8	static
+uart.c:116:6:uart_rec	24	static

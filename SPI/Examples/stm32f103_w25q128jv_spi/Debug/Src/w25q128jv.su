@@ -1,0 +1,14 @@
+w25q128jv.c:13:6:W25_Reset	8	static
+w25q128jv.c:20:6:WriteEnable_flash	8	static
+w25q128jv.c:27:6:W25_Read_Data	32	static
+w25q128jv.c:43:6:W25_Write_Data	32	static
+w25q128jv.c:57:10:W25_Read_ID	16	static
+w25q128jv.c:68:6:W25_Ini	8	static
+w25q128jv.c:79:6:erase_sector4KB	16	static
+w25q128jv.c:89:6:erase_sector32KB	16	static
+w25q128jv.c:99:6:erase_sector64KB	16	static
+w25q128jv.c:109:6:chip_erase	8	static
+w25q128jv.c:116:6:Uinque_ID	16	static
+w25q128jv.c:121:6:WriteSR	16	static
+w25q128jv.c:130:9:ReadSR	24	static
+w25q128jv.c:139:6:WaitForWriteEnd	16	static

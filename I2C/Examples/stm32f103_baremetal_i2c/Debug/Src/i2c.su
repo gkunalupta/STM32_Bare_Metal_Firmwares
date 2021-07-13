@@ -1,0 +1,12 @@
+i2c.c:12:6:I2C2_pin_config	4	static
+i2c.c:30:6:master_init	8	static
+i2c.c:57:6:i2c_start_condition_w	4	static
+i2c.c:64:6:i2c_start_condition_r	4	static
+i2c.c:77:6:i2c_address_send_w	16	static
+i2c.c:91:6:databyte_send	16	static
+i2c.c:98:5:i2c_address_send_r	16	static
+i2c.c:122:6:datareive_string	16	static
+i2c.c:135:6:databyte_receive_ack	16	static
+i2c.c:155:9:databyte_receive_nack	16	static
+i2c.c:172:6:lastdata_send	16	static
+i2c.c:185:6:stop_generation	4	static

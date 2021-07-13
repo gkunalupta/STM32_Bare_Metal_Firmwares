@@ -1,0 +1,2 @@
+rcc.c:21:6:MCO_pin_conf	4	static
+rcc.c:33:6:system_clk	8	static

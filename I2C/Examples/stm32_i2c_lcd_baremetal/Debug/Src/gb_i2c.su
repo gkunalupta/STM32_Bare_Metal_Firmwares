@@ -1,0 +1,11 @@
+gb_i2c.c:12:6:gb_i2c2_pin_config	4	static
+gb_i2c.c:30:6:gb_i2c_master_init	8	static
+gb_i2c.c:57:6:gb_i2c_start_condition_w	4	static
+gb_i2c.c:64:6:gb_i2c_start_condition_r	4	static
+gb_i2c.c:77:6:gb_i2c_address_send_w	16	static
+gb_i2c.c:91:6:gb_i2c_master_send_byte	16	static
+gb_i2c.c:98:5:gb_i2c_address_send_r	16	static
+gb_i2c.c:122:6:datareive_string	16	static
+gb_i2c.c:135:6:gb_i2c_master_receive_2_bytes	16	static
+gb_i2c.c:155:9:gb_i2c_master_receive_byte	16	static
+gb_i2c.c:172:6:gb_i2c_master_stop_generation	4	static

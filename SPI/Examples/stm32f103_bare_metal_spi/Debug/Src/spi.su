@@ -1,0 +1,5 @@
+spi.c:14:6:spi_pin_conf	4	static
+spi.c:41:6:spi_init	8	static
+spi.c:61:6:spi_mast_tran_byte	16	static
+spi.c:70:9:spi_mast_recv_byte	16	static
+spi.c:81:9:spi_mast_exchange_byte	16	static

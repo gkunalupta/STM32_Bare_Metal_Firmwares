@@ -1,0 +1,7 @@
+t_delay.c:28:7:timer_initialise	4	static
+t_delay.c:60:6:delay_us	16	static
+t_delay.c:74:6:delay_ms	24	static
+t_delay.c:79:6:delay_sec	24	static
+t_delay.c:84:6:delay	4	static
+t_delay.c:91:6:delayus	24	static
+t_delay.c:105:6:delayms	24	static
