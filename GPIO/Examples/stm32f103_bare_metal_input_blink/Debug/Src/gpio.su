@@ -1,0 +1,2 @@
+gpio.c:18:6:Gpio_output_pushpull_conf	4	static
+gpio.c:31:6:Gpio_input_pushpull_conf	4	static
