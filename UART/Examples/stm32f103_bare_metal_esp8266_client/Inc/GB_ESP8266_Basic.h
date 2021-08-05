@@ -8,7 +8,6 @@
 #ifndef GB_ESP8266_BASIC_H_
 #define GB_ESP8266_BASIC_H_
 
-#include <stdint.h>
 #include <string.h>
 #include <stdio.h>
 #include "stm32f1xx.h"

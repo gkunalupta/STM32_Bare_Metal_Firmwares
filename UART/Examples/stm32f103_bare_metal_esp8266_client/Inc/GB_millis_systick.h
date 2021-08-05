@@ -19,8 +19,8 @@
 
 
 //variable for millis counter
+extern volatile uint32_t GB_counter;
 
-//volatile uint32_t GB_counter;
 //system_tick handler on reaching 0
 void SysTick_Handler(void);
 

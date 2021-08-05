@@ -8,8 +8,10 @@
 #include "GB_millis_systick.h"
 
 #include "stm32f1xx.h"
-
+//variable for millis counter
 volatile uint32_t GB_counter;
+
+
 void SysTick_Handler(void)
 {
 	//GB_printString1("gup\n");

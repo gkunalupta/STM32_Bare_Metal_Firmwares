@@ -16,6 +16,7 @@
  *
  ******************************************************************************
  */
+
 #include <stdint.h>
 #include <string.h>
 #include <stdio.h>
@@ -28,7 +29,6 @@
 #include "GB_uart.h"
 #include "GB_ESP8266_Basic.h"
 
-
 // UART Port 0 is connected between MCU(Atmega 2560) and Laptop for printing data on terminal screen
   // UART Port 1 is connected between MCU( ATmega 2560) and ESP8266 for sending and receiving data via AT commands
 
@@ -37,7 +37,6 @@
  // const char gb_urlpath[100] ="/update?api_key=K86PTN9OPANWW8MF&field1";
  // const char gb_url[100] = "api.thingspeak.com";
 
-
 int main(void)
 {
 	systick_millis(32000);
@@ -45,7 +44,7 @@ int main(void)
 	timer_initialise();
 	//terminal
 	GB_uart_init1();
-	GB_printString1("\nSTM32 ESP8266 device driver\n");
+	GB_printString1("\nSTM32 ESP8266 Device Driver\n");
 	GB_printString1("\nKunal Gupta\n");
 	//ESP8266
 	GB_uart_init2();
@@ -55,10 +54,13 @@ int main(void)
     /* Loop forever */
 	while(1)
 	{
-//		uint8_t gb_t = 90;
-//	    GB_esp8266_connectTCPserver(gb_url,80);
-//		GB_esp8266_cipsend(gb_t,gb_urlpath);
-//		GB_esp8266_tcpgetcommand(gb_urlpath,gb_t);
-//		delay_ms(2000);
+
+	//uint8_t gb_t = 90;
+	//GB_esp8266_connectTCPserver(gb_url,80);
+	//GB_esp8266_cipsend(gb_t,gb_urlpath);
+	//GB_esp8266_tcpgetcommand(gb_urlpath,gb_t);
+	//delay_ms(2000);
+	//gb_t++;
+
 	}
 }

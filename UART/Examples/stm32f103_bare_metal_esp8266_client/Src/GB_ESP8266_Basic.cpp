@@ -1,7 +1,6 @@
 
 
 
-#include "rcc.h"
 #include "GB_uart.h"
 #include "GB_ESP8266_Basic.h"
 #include "GB_millis_systick.h"
@@ -419,3 +418,4 @@ void GB_esp8266_initialise_client()
 		//esp8266_IPadress();
 		//esp8266_rst();
 	}
+
