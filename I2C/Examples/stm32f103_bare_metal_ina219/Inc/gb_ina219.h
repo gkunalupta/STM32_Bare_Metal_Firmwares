@@ -112,11 +112,36 @@ enum {
 #define ina219_RA 0b10000001
 
 
-
+/*
+ * INA219 Initialise Function , for Setting  Configuration and Calibration register
+ * as mentioned in above calculations
+ */
 void ina219_init();
+/*
+ * Function for reading the Bus Voltage Value from Bus Voltage Register(0x02) of INA219
+ * -->  First sent the Address of Bus Voltage Register and then Read the 16 bits from that register
+ * -->Bus Voltage Readings are given from [15:3] bytes, as [1:0] bits are Conversion Ready bit and Math Overflow Flag bit and [2] bit is reserved
+ * --> so we will left shift the 16 bit value of 0x02 register by 3 bytes
+ * --> And then Multiply the raw Bus Voltage Reading[15:3] by 4.
+ */
 void ina219_busvoltage();
+/*
+ * Function for reading the Shunt Voltage Value from Shunt Voltage Register(0x01) of INA219
+ * -->First sent the Address of Shunt Voltage Register and then Read the 16 bits from that register
+ * -->Shunt Voltage Readings are Read and Obtained 16 bit value is multiplied by 0.01
+ */
 void ina219_shuntvoltage();
+/*
+ * Function for reading the Shunt Current Value from Shunt Current Register(0x04) of INA219
+ * -->First sent the Address of Shunt Current  Register and then Read the 16 bits from that register
+ * -->Shunt Current Readings are Read and Obtained 16 bit value is multiplied by Current_LSB(0.0001) and then Multiplied to 1000 for making it convert to mA
+ */
 void ina219_shuntcurrent();
+/*
+ * Function for reading the Power Consumed by Load  Value from Power Register(0x03) of INA219
+ * -->First sent the Address of Power Register and then Read the 16 bits from that register
+ * -->Power Readings are Read and Obtained 16 bit value is multiplied by Power_LSB(0.002) and then Multiplied to 1000 for making it convert to mW
+ */
 void ina219_Loadpower();
 
 
