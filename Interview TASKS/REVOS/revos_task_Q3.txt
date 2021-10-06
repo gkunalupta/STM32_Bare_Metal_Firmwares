@@ -1,0 +1,16 @@
+#define ADX375_DATAX0_READ 0x32
+
+void adxlRead(uint *data, uint8_t length)
+{
+
+uint8_t add = ADX375_DATAX0_READ;
+uint8_t readDATA[length];
+
+HAL_SPI_Transmit(&ADXL_COMM_SPI, &add, 1, 100);
+HAL_SPI_Receive(&ADXL_COMM_SPI, &readData, length,100);
+
+memcpy(data, readData, length);
+
+HAL_UART_Transmit(&huart1,readData,length,100);  // using UART1 PORT 
+
+}
