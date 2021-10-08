@@ -329,6 +329,10 @@ void ssd1306_GoToNextLine();
 void ssd1306_clear(GB_SSD1306_COLOR_t color);
 void ssd1306_draw_pixel(uint16_t x, uint16_t y, GB_SSD1306_COLOR_t color);
 void ssd1306_toggle_invert();
-void ssd1306_print_char(char ch);
-
+char ssd1306_print_char(char ch,GB_SSD1306_COLOR_t color);
+void ssd1306_GotoXY(uint16_t x,uint16_t y);
+char ssd1306_print_string(char* str, GB_SSD1306_COLOR_t color);
+void ssd1306_print_decimel(uint32_t gb_val, GB_SSD1306_COLOR_t color);
+void ssd1306_print_binary(uint32_t gb_val, GB_SSD1306_COLOR_t color);
+void ssd1306_float(float gb_value, GB_SSD1306_COLOR_t color);
 #endif /* GB_SSD1306_H_ */

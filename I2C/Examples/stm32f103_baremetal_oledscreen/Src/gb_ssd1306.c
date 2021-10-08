@@ -13,7 +13,7 @@
 
 static uint8_t GB_SSD1306_Buffer[GB_SSD1306_WIDTH * GB_SSD1306_HEIGHT / 8]; // buffer of 512 bytes
 
-static const unsigned char SSD1306_font[][GB_SSD1306_DFT_FONT_SIZE]=
+static const unsigned char SSD1306_font5x8[][GB_SSD1306_DFT_FONT_SIZE]=
 {
     {0x00, 0x00, 0x00, 0x00, 0x00},   // space
     {0x00, 0x00, 0x2f, 0x00, 0x00},   // !
@@ -111,6 +111,17 @@ static const unsigned char SSD1306_font[][GB_SSD1306_DFT_FONT_SIZE]=
     {0x00, 0x82, 0x7C, 0x10, 0x00},   // }
     {0x00, 0x06, 0x09, 0x09, 0x06}    // ~ (Degrees)
 };
+
+typedef struct {
+	uint16_t CurrentX;
+	uint16_t CurrentY;
+	uint8_t Inverted;
+	uint8_t Initialized;
+} GB_SSD1306_t;
+
+/* Private variable */
+static GB_SSD1306_t GB_SSD1306;
+
 void ssd1306_init()
 {
 
@@ -154,6 +165,14 @@ void ssd1306_init()
 	gb_i2c_master_stop_generation(); // STOP Condition is generated
 	delay_ms(100);
 	*/
+
+	/* Set default values */
+		GB_SSD1306.CurrentX = 0;
+		GB_SSD1306.CurrentY = 0;
+
+	/* Initialized OK */
+	GB_SSD1306.Initialized = 1;
+
 }
 
 void ssd1306_sendcommand(uint8_t command)
@@ -219,7 +238,16 @@ void ssd1306_SetCursor( uint8_t lineNo, uint8_t cursorPos )
     ssd1306_sendcommand(GB_SSD1306_MAX_LINE);  // page end addr
   }
 }
-
+/*
+ * x is column[0-127]
+ * y is row[0-63]
+ */
+void ssd1306_GotoXY( uint16_t x,uint16_t y)
+{
+	/* Set write pointers */
+		GB_SSD1306.CurrentX = x;
+		GB_SSD1306.CurrentY = y;
+}
 void ssd1306_GoToNextLine()
 {
 	/*
@@ -237,7 +265,10 @@ void ssd1306_clear(GB_SSD1306_COLOR_t color)
 {
 	memset(GB_SSD1306_Buffer, (color == GB_SSD1306_COLOR_BLACK) ? 0x00 : 0xFF, sizeof(GB_SSD1306_Buffer));
 }
-
+/*
+ * x is column[0-127] : x is equivalent to CurrentX
+ * y is row[0-63] : y is equivalent to CurrentY
+ */
 void ssd1306_draw_pixel(uint16_t x, uint16_t y, GB_SSD1306_COLOR_t color)
 {
 	if (
@@ -265,38 +296,122 @@ void ssd1306_toggle_invert()
 		}
 }
 
-void ssd1306_print_char(char ch)
+
+/*
+ * Font size is 8*5:
+ * 5 is no of columns: font width // x is width : CurrentX :0-127
+ * 8 is no of rows: font height  //y is height : CurrentY : 0-63
+ */
+char ssd1306_print_char(char ch, GB_SSD1306_COLOR_t color)
 {
-	 char data_byte;
-	 uint8_t temp = 0;
 
-	if(((GB_SSD1306_CursorPos + GB_SSD1306_FontSize) >= GB_SSD1306_MAX_SEG) || (ch == '\n'))
+	uint32_t i, b, j;
+
+	for (i = 0; i < 5 ; i++)
 	{
-		ssd1306_GoToNextLine();
+			b = SSD1306_font5x8[(ch - 32)][i]; //mapping the vales of bits for rinting the character ch
+
+			if (color == GB_SSD1306_COLOR_WHITE)
+			{
+				GB_SSD1306_Buffer[GB_SSD1306.CurrentX + (GB_SSD1306.CurrentY / 8) * GB_SSD1306_WIDTH] |= b;
+			}else
+			{
+				GB_SSD1306_Buffer[GB_SSD1306.CurrentX + (GB_SSD1306.CurrentY / 8) * GB_SSD1306_WIDTH] &= ~b;
+			}
+
+		  GB_SSD1306.CurrentX ++;
+		}
+
+	/* Return character written */
+		return ch;
+
+
+
+
+//	 char data_byte;
+//	 uint8_t temp = 0; //row number
+//
+//	if(((GB_SSD1306_CursorPos + GB_SSD1306_FontSize) >= GB_SSD1306_MAX_SEG) || (ch == '\n'))
+//	{
+//		ssd1306_GoToNextLine();
+//	}
+//
+//	 if( ch != '\n' )
+//	  {
+//
+//	    /*
+//	    ** In our font array (SSD1306_font), space starts in 0th index.
+//	    ** But in ASCII table, Space starts from 32 (0x20).
+//	    ** So we need to match the ASCII table with our font table.
+//	    ** We can subtract 32 (0x20) in order to match with our font table.
+//	    */
+//	    ch -= 0x20;  //or c -= ' ';
+//	    do
+//	    {
+//	      data_byte= SSD1306_font5x8[ch][temp]; //ch is column no
+//		                                    // Get the data to be displayed from LookUptable
+//	      GB_SSD1306_Buffer[temp] = data_byte;
+//
+//	      GB_SSD1306_CursorPos++;
+//
+//	      temp++;
+//
+//	    } while ( temp < GB_SSD1306_FontSize);
+//	    //ssd1306_senddata(0x00);         //Display the data
+////	 GB_SSD1306_CursorPos++;
+//	  }
+
+}
+
+char ssd1306_print_string(char* str, GB_SSD1306_COLOR_t color)
+{
+	while (*str)
+	{
+		ssd1306_print_char(*str++, (GB_SSD1306_COLOR_t) color);
 	}
+	/* Everything OK, zero should be returned */
+		return *str;
+}
 
-	 if( ch != '\n' )
-	  {
+void ssd1306_print_binary(uint32_t gb_val, GB_SSD1306_COLOR_t color)
+{
+	int8_t gb_ptr;
+	for(gb_ptr=31;gb_ptr>=0;gb_ptr--)
+	{
+		if ((gb_val & (1<<gb_ptr))==0)
+		{
+			ssd1306_print_char('0',  (GB_SSD1306_COLOR_t) color);
+		}
+		else
+		{
+			ssd1306_print_char('1',  (GB_SSD1306_COLOR_t) color);
+		}
+	}
+}
+void ssd1306_print_decimel(uint32_t gb_val, GB_SSD1306_COLOR_t color)
+{
+	unsigned char gb_buf[5];
+	int8_t gb_ptr;
+	for(gb_ptr=0;gb_ptr<5;++gb_ptr)
+	{
+		gb_buf[gb_ptr] = (gb_val % 10) + '0';
+		gb_val /= 10;
+	}
+	for(gb_ptr=4;gb_ptr>0;--gb_ptr)
+	{
+		if (gb_buf[gb_ptr] != '0')
+		break;
+	}
+	for(;gb_ptr>=0;--gb_ptr)
+	{
+		ssd1306_print_char(gb_buf[gb_ptr], (GB_SSD1306_COLOR_t) color);
+	}
+}
 
-	    /*
-	    ** In our font array (SSD1306_font), space starts in 0th index.
-	    ** But in ASCII table, Space starts from 32 (0x20).
-	    ** So we need to match the ASCII table with our font table.
-	    ** We can subtract 32 (0x20) in order to match with our font table.
-	    */
-	    ch -= 0x20;  //or c -= ' ';
-	    do
-	    {
-	      data_byte= SSD1306_font[ch][temp]; // Get the data to be displayed from LookUptable
-	      GB_SSD1306_Buffer[temp] = data_byte;
-	  //    ssd1306_senddata(data_byte);  // write data to the OLED
-	      GB_SSD1306_CursorPos++;
-
-	      temp++;
-
-	    } while ( temp < GB_SSD1306_FontSize);
-	    //ssd1306_senddata(0x00);         //Display the data
-//	 GB_SSD1306_CursorPos++;
-	  }
+void ssd1306_float(float gb_value, GB_SSD1306_COLOR_t color)
+{
+	char gb_float_buff[10];
+	sprintf(gb_float_buff,"%2f",gb_value);
+	ssd1306_print_string(gb_float_buff,(GB_SSD1306_COLOR_t) color );
 
 }
