@@ -62,34 +62,45 @@ int main(void)
 
 	gb_i2c_master_init();
 	ssd1306_init();
-	ssd1306_clear(GB_SSD1306_COLOR_BLACK);
-	ssd1306_update_data();
+	//ssd1306_clear(GB_SSD1306_COLOR_BLACK);
+	//ssd1306_update_data();
 
+	float x = 00.00;
+	int ch = 10;
     /* Loop forever */
 	while(1)
 	{
+//		ssd1306_clear(GB_SSD1306_COLOR_BLACK);
+//		ssd1306_update_data();
+
+//		ssd1306_GotoXY(12,0);
+//		ssd1306_print_char("Kunal:",GB_SSD1306_COLOR_WHITE);
+//		ssd1306_update_data();
+//		delay_ms(1);
 
 
-		ssd1306_GotoXY(123,0);
-		ssd1306_print_char('K',GB_SSD1306_COLOR_WHITE);
-		ssd1306_update_data();
-		delay_ms(1);
-
-
-		ssd1306_GotoXY(40,5);
+		ssd1306_GotoXY(0,0);
 		ssd1306_print_string("Kunal",GB_SSD1306_COLOR_WHITE);
 		ssd1306_update_data();
-		delay_ms(1000);
+	//	delay_ms(1000);
+//
+//		ssd1306_GotoXY(65,10);
+//		ssd1306_print_string("gettobyte",GB_SSD1306_COLOR_WHITE);
+//		ssd1306_update_data();
+//	    delay_ms(1000);
 
-		ssd1306_GotoXY(65,5);
-		ssd1306_print_string("gettobyte",GB_SSD1306_COLOR_WHITE);
-		ssd1306_update_data();
-	    delay_ms(1000);
+		ssd1306_DrawLineV(0,63,0,1);
 
-	    ssd1306_GotoXY(78,5);
-	   	ssd1306_float(10.78,GB_SSD1306_COLOR_WHITE);
-	    ssd1306_update_data();
-	   	delay_ms(1000);
+		ssd1306_DrawLineH(0,127,0,1);
+
+		ssd1306_DrawLineH(0,127,63,1);
+
+		ssd1306_DrawLineV(0,63,127,1);
+//	    ssd1306_GotoXY(78,20);
+//	   	ssd1306_print_decimel(ch,GB_SSD1306_COLOR_WHITE);
+//	    ssd1306_update_data();
+//	   	delay_ms(1000);
+//	    ch++;
 
 	}
 }
