@@ -58,36 +58,37 @@ int main(void)
 	timer_initialise();
 	RCC->APB2ENR |= RCC_APB2ENR_AFIOEN;
 	AFIO->MAPR |= AFIO_MAPR_SWJ_CFG_JTAGDISABLE;
-	//Gpio_output_pushpull_conf();
 
-	GB_uart_init2();
 	ina219_init();
-	GB_printString2("Bus Voltage: ");
+	GB_uart_init1();
+	GB_printString1("Bus Voltage: ");
+
     /* Loop forever */
 	while(1)
 	{
-
-		GB_printString2("Bus Voltage: ");
+		GB_printString1("Bus Voltage: ");
+		//GB_decimel2(GPIOA->IDR);
+		GB_printString1("Bus Voltage: ");
 		ina219_busvoltage();
-		GB_printString2("V\n");
+		GB_printString1("V\n");
 
-		GB_printString2("Shunt Voltage: ");
+		GB_printString1("Shunt Voltage: ");
 		ina219_shuntvoltage();
-		GB_printString2("mV\n");
+		GB_printString1("mV\n");
 
-		GB_printString2("Shunt Current: ");
+		GB_printString1("Shunt Current: ");
 		ina219_shuntcurrent();
-		GB_printString2("mA\n");
+		GB_printString1("mA\n");
 
-		GB_printString2("Load Power : ");
+		GB_printString1("Load Power : ");
 		ina219_Loadpower();
-		GB_printString2("mW\n");
+		GB_printString1("mW\n");
 
 
-		GB_printString2("\n");
-		GB_printString2("\n");
-		GB_printString2("\n");
-		delay_ms(3000);
+		GB_printString1("\n");
+		GB_printString1("\n");
+		GB_printString1("\n");
+		delay_ms(2000);
 	}
 
 }
