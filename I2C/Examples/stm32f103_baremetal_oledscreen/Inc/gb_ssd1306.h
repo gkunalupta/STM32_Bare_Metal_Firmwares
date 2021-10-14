@@ -293,9 +293,9 @@ enum
 #define GB_SSD1306_PRECHARGE 0xD9
 
 #define GB_SSD1306_VCOMH_SELECT_COMMAND 0xDB
-#define GB_SSD1306_VCOMH_0.65*VCC 0x00
-#define GB_SSD1306_VCOMH_0.77*VCC 0x20
-#define GB_SSD1306_VCOMH_0.83*VCC 0x30
+//#define GB_SSD1306_VCOMH_0.65*VCC 0x00
+//#define GB_SSD1306_VCOMH_0.77*VCC 0x20
+//#define GB_SSD1306_VCOMH_0.83*VCC 0x30
 
 
 #define GB_SSD1306_DISPLAY_RESUME 0xA4
@@ -313,7 +313,7 @@ enum
 */
 static uint8_t GB_SSD1306_LineNum   = 0;
 static uint8_t GB_SSD1306_CursorPos = 0;
-static uint8_t GB_SSD1306_FontSize  = GB_SSD1306_DFT_FONT_SIZE;
+//static uint8_t GB_SSD1306_FontSize  = GB_SSD1306_DFT_FONT_SIZE;
 
 typedef enum {
 	GB_SSD1306_COLOR_BLACK = 0x00, /*!< Black color, no pixel */
@@ -338,5 +338,8 @@ void ssd1306_float(float gb_value, GB_SSD1306_COLOR_t color);
 void ssd1306_fill_byte(unsigned char data, GB_SSD1306_COLOR_t color);
 void ssd1306_DrawLineV(uint8_t line_starting_point, uint8_t line_end_point, uint8_t column,uint8_t line_width);
 void ssd1306_DrawLineH(uint8_t line_starting_point, uint8_t line_end_point, uint8_t row, uint8_t line_width);
+void ssd1306_drawRectangle(uint8_t edge_x_point, uint8_t edge_y_point, uint8_t width, uint8_t height);
+void ssd1306_drawRectangleFill(uint8_t edge_x_point, uint8_t edge_y_point, uint8_t width, uint8_t height);
 
+void ssd1306_bitmap(char* str);
 #endif /* GB_SSD1306_H_ */
