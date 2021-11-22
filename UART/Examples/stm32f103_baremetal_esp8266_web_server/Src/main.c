@@ -34,6 +34,10 @@
 
 
 extern char gb_RX_DATA_UART2[gb_RX_BUFFER_SIZE_UART2];
+
+extern char gb_Rx_Buffer_UART2[gb_RX_BUFFER_SIZE_UART2];
+
+extern char gb_RX_No_of_byte_UART2;
 /*
 #if !defined(__SOFT_FP__) && defined(__ARM_FP)
   #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
@@ -50,7 +54,7 @@ int main(void)
 		timer_initialise();
 		//terminal
 		GB_uart_init1();
-		GB_printString1("\nSTM32 ESP8266 Device Driver\n");
+		GB_printString1("\nSTM32 ESP8266 as webserver Device Driver\n");
 		GB_printString1("\nKunal Gupta\n");
 		//ESP8266
 		GB_uart_init2();
@@ -71,36 +75,60 @@ int main(void)
                    //Configure as Station
                    GB_send_command("AT+CWMODE=1\r\n");
                    GB_RFR_UART2("OK",1000);
-                   //GB_getstring_UART2();
                    GB_printString1(gb_RX_DATA_UART2);
+                   GB_printString1("\n");
+//                   GB_printString1(gb_Rx_Buffer_UART2);
 
+//                   GB_printString1("\n");
+//                   GB_decimel1(gb_RX_No_of_byte_UART2);
 
                    //Start Multiple connection
                    GB_send_command("AT+CIPMUX=1\r\n");
                    GB_RFR_UART2("OK",1000);
-                   //GB_getstring_UART2();
                    GB_printString1(gb_RX_DATA_UART2);
+                   GB_printString1("\n");
+//                   GB_printString1(gb_Rx_Buffer_UART2);
+
+//                   GB_printString1("\n");
+//                   GB_decimel1(gb_RX_No_of_byte_UART2);
 
                    GB_send_command("AT+CIPSERVER=1,80\r\n");
                    GB_RFR_UART2("OK",1000);
                    GB_printString1(gb_RX_DATA_UART2);
+                   GB_printString1("\n");
+//                   GB_printString1(gb_Rx_Buffer_UART2);
+
+//                   GB_printString1("\n");
+//                   GB_decimel1(gb_RX_No_of_byte_UART2);
+
 
                    GB_send_command("AT+CWJAP?\r\n");
                    GB_RFR_UART2("OK",1000);
-                   //GB_getstring_UART2();
-                    GB_printString1(gb_RX_DATA_UART2);
+                   GB_printString1(gb_RX_DATA_UART2);
+                   GB_printString1("\n");
+//                   GB_printString1(gb_Rx_Buffer_UART2);
+//                   GB_printString1("\n");
+//                   GB_decimel1(gb_RX_No_of_byte_UART2);
 
 	              //  Connect To wifi
-               //     GB_send_command("AT+CWJAP=\"Kunal\",\"Pottypotty12\"\r\n");
+                   //GB_send_command("AT+CWJAP=\"Kunal\",\"Pottypotty12\"\r\n");
                    GB_send_command("AT+CWJAP=\"JioFiber 2.4ghz\",\"Mansi5481\"\r\n");
                   //  GB_send_command("AT+CWJAP=\"LALIT\",\"POTTYPOTTY\"\r\n");
                     GB_RFR_UART2("OK",10000);
                     GB_printString1(gb_RX_DATA_UART2);
+                    GB_printString1("\n");
+               //     GB_printString1(gb_Rx_Buffer_UART2);
+//                    GB_printString1("\n");
+//                    GB_decimel1(gb_RX_No_of_byte_UART2);
+
 
                     GB_send_command("AT+CIFSR\r\n");
                     GB_RFR_UART2("OK",1000);
-
-                    //GB_printString1(gb_RX_DATA_UART2);
+                    GB_printString1(gb_RX_DATA_UART2);
+                    GB_printString1("\n");
+                   // GB_printString1(gb_Rx_Buffer_UART2);
+//                    GB_printString1("\n");
+//                    GB_decimel1(gb_RX_No_of_byte_UART2);
 
 
                       memset(gb_staip, '\0',sizeof(gb_staip));
@@ -109,8 +137,8 @@ int main(void)
                       gb_p += strlen("+CWJAP:STAIP")+2;
                       char * gb_q=strchr(gb_p,'"');
                        strncpy(gb_staip,gb_p,gb_q-gb_p);
-                      GB_printString1("IP address of Station is :");
-                      GB_printString1(gb_staip);
+                  //    GB_printString1("IP address of Station is :");
+                 //     GB_printString1(gb_staip);
 
                        // GB_printString1("\n");
                        // GB_printString1(gb_p);
@@ -131,24 +159,29 @@ int main(void)
                          GB_printString1("Browse IP address on the local Web-Browser:");
                          GB_printString1(gb_staip);
                          GB_printString1("\n");
+
                }
+
+			//GB_printString1("Kunal");
 
 			uint8_t gb_g=0;
 			gb_g = GB_getstring_ESP8266FORSERVER(gb_staip);
-			GB_printString1("gb_g =");
-			GB_decimel1(gb_g);
-			GB_printString1("\n");
+
+			GB_decimel1(strlen(gb_Rx_Buffer_UART2));
+
+			delay_us(100);
+
 				if(gb_g==1)
 				{
-					GB_esp8266_serverdatatoclientcipsend();
-					delay_ms(200);
+				GB_esp8266_serverdatatoclientcipsend();
+				delay_ms(200);
 				GB_esp8266_webpagedata();
 				delay_ms(200);
 				GB_esp8266_webpageclose();
 				delay_ms(200);
 				}
 
-				delay_ms(5000);
+				delay_ms(1000);
 
 
 		}

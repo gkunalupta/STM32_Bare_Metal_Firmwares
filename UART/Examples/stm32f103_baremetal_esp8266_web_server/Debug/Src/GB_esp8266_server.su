@@ -1,5 +1,5 @@
 GB_esp8266_server.c:21:10:GB_getstring_ESP8266FORSERVER	16	static
-GB_esp8266_server.c:74:6:GB_esp8266_serverdatatoclientcipsend	16	static
-GB_esp8266_server.c:104:6:GB_esp8266_webpagedata	16	static
-GB_esp8266_server.c:127:6:GB_esp8266_webpageclose	32	static
-GB_esp8266_server.c:147:6:GB_esp8266_iniserver	8	static
+GB_esp8266_server.c:64:6:GB_esp8266_serverdatatoclientcipsend	16	static
+GB_esp8266_server.c:82:6:GB_esp8266_webpagedata	16	static
+GB_esp8266_server.c:93:6:GB_esp8266_webpageclose	32	static
+GB_esp8266_server.c:110:6:GB_esp8266_iniserver	8	static

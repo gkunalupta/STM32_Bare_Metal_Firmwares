@@ -8,17 +8,16 @@
 
 
 
-
 int gb_senseval=0;
 
 
 /* USART Receiver buffer Ring buffer for UART1 port*/
 	#define gb_RX_BUFFER_SIZE_UART2 500
-	uint8_t gb_Rx_Buffer_UART2[gb_RX_BUFFER_SIZE_UART2]; // character array (buffer)
-	uint8_t gb_RX_Wr_Index_UART2 =0; //index of next char to be put into the buffer  // head
-	uint8_t gb_RX_Rd_Index_UART2=0; //index of next char to be fetched from the buffer    //tail
-	uint8_t gb_RX_Counter_UART2=0; //a total count of characters in the buffer
-	uint8_t gb_RX_No_of_byte_UART2=0;
+	char gb_Rx_Buffer_UART2[gb_RX_BUFFER_SIZE_UART2]; // character array (buffer)
+	uint16_t gb_RX_Wr_Index_UART2 =0; //index of next char to be put into the buffer  // head
+	uint16_t gb_RX_Rd_Index_UART2=0; //index of next char to be fetched from the buffer    //tail
+	uint16_t gb_RX_Counter_UART2=0; //a total count of characters in the buffer
+	uint16_t gb_RX_No_of_byte_UART2=0;
 	_Bool gb_RX_Buffer_Overflow_UART2; // This flag is set on USART Receiver // buffer overflow
 	char gb_rx_byte;
 	char gb_RX_DATA_UART2[gb_RX_BUFFER_SIZE_UART2];
@@ -32,12 +31,12 @@ void USART2_IRQHandler(void)
                 {
                       gb_rx_byte = USART2->DR; //fetch the data received
                       gb_Rx_Buffer_UART2[gb_RX_Wr_Index_UART2]= gb_rx_byte;   /* put received char in buffer */
-  		              if(++gb_RX_Wr_Index_UART2 > gb_RX_BUFFER_SIZE_UART2)
+  		              if(gb_RX_Wr_Index_UART2++ > gb_RX_BUFFER_SIZE_UART2)
   		              gb_RX_Wr_Index_UART2 = 0;
-  		              if(gb_RX_Counter_UART2++ > gb_RX_BUFFER_SIZE_UART2) /* keep a character count */
+  		              if(++gb_RX_Counter_UART2 > gb_RX_BUFFER_SIZE_UART2) /* keep a character count */
   		                   {
   			                    /* overflow check.. */
-  			                    gb_RX_Counter_UART2 = gb_RX_BUFFER_SIZE_UART2; /* if too many chars came */
+  			                    gb_RX_Counter_UART2 = 0; /* if too many chars came */
   			                  gb_RX_Buffer_Overflow_UART2 = 1;            /* in before they could be used */
   			                }                                          /* that could cause an error!! */
   		              else
@@ -64,12 +63,14 @@ char  GB_getchar_UART2()             // <--->   Serial.read()
 	if(++gb_RX_Rd_Index_UART2 > gb_RX_BUFFER_SIZE_UART2) /* wrap the pointer */
 	gb_RX_Rd_Index_UART2 = 0;
 
-	if(gb_RX_Counter_UART2>0)
-	gb_RX_Counter_UART2--; /* keep a count (buffer size) */
-	else return NULL ;     //return NULL if no character is received
-	//GB_UART_TxChar1(gb_c);
+	if(gb_RX_Counter_UART2>0) // when gb_RX_Counter_UART2 is greater then 0, it means our ring buffer has got some data
+	--gb_RX_Counter_UART2; /* keep a count (buffer size) */
+	else
+		{
+
+		return NULL ;     //return NULL if no character is received
+		}
 	return gb_c ;//return char *
-	//printString0("n \n ");
 }
 /*
  * tHIS FUNCTION WILL ALWAYS WILL UPDATE THE GB_rx_data_uart2 BUFFER WITH NEW VALUES
@@ -77,15 +78,8 @@ char  GB_getchar_UART2()             // <--->   Serial.read()
  */
 int GB_getstring_UART2()
 {
-//	GB_printString1(" Number of characters received : ");
-//	GB_decimel1(gb_RX_No_of_byte_UART2);
-//	GB_printString1("\n");
-//	GB_decimel1(gb_RX_Counter_UART2);
-//	GB_printString1("\n");
-
 	int g = 0;
-	//GB_printString1(gb_RX_DATA_UART2);
-	uint8_t gb_x=0;
+	uint16_t gb_x=0;
 	memset(gb_RX_DATA_UART2, '\0',gb_RX_BUFFER_SIZE_UART2);
 	//memset(gb_Rx_Buffer_UART2, '\0',gb_RX_BUFFER_SIZE_UART2);
 	while (gb_RX_Counter_UART2)
@@ -96,9 +90,6 @@ int GB_getstring_UART2()
 		//return 1;
 	}
 	return g;
-	//GB_printString1(gb_RX_DATA_UART2);
-	//_delay_ms(1000);
-
 }
 
 char* GB_search_buffer(const char* gb_search)
@@ -119,29 +110,25 @@ void GB_send_command(const char * gb_command)
 int GB_RFR_UART2(const char * gb_rsp,unsigned int gb_timeout)
 {
 	unsigned long gb_timeIn = GB_millis();	// Timestamp coming into function
-	uint8_t gb_received = 0;
+	uint16_t gb_received = 0;
 	memset(gb_RX_DATA_UART2, '\0',gb_RX_BUFFER_SIZE_UART2);
-	//printString0(" Number of characters received : ");
-	//decimel0(RX_No_of_byte_UART1);
-	//printString0("\n");
-
 	while (GB_millis() - gb_timeIn < gb_timeout) // While we haven't timed out
 	{
-		//printString0("k\n");
+
 		if(gb_RX_Counter_UART2)
 		{
 			gb_RX_DATA_UART2[gb_received]= GB_getchar_UART2();
-			//decimel0(received);
-			//printString0(" ");
-			//UART_TxChar0(RX_DATA_UART1[received]);
-			//printString0("\n");
+
 			gb_received++;
-			if(GB_search_buffer(gb_rsp)) return 1;
+			if(GB_search_buffer(gb_rsp))                      // as if get the data which we want on the received buffer
+				{
+
+				gb_RX_Counter_UART2 = 0;
+				return 1;
+				}
 
 		}
 	}
-
-	//printString0(RX_DATA_UART1);
 	if (gb_received > 0) // If we received any characters
 	return gb_received; // Return unkown response error code
 	else // If we haven't received any characters
@@ -161,27 +148,20 @@ int GB_RFR_UART2_client(unsigned int gb_timeout)
 		GB_printString1("\n");
 		while (GB_millis() - gb_timeIn < gb_timeout) // While we haven't timed out
 		{
-			//printString0("k\n");
+
 			if(gb_RX_Counter_UART2)
 			{
-//				GB_decimel1(gb_RX_Counter_UART2);
-//							GB_printString1("\n");
-//							GB_decimel1(gb_received);
-//							GB_printString1("\n");
+
 				gb_RX_DATA_UART2[gb_received]= GB_getchar_UART2();
 				gb_received++;
 
-//				GB_decimel1(gb_RX_Counter_UART2);
-//				GB_printString1("\n");
-//				GB_decimel1(gb_received);
-//				GB_printString1("\n");
 			}else if(gb_RX_No_of_byte_UART2 == 3)
 			{
 				break;
 			}
 		}
 
-		//printString0(RX_DATA_UART1);
+
 		if (gb_received > 0) // If we received any characters
 		return gb_received; // Return unkown response error code
 		else // If we haven't received any characters
