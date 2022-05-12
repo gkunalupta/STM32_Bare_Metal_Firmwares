@@ -1,0 +1,5 @@
+gb_ina219.c:77:6:ina219_init	16	static
+gb_ina219.c:130:7:ina219_busvoltage	216	static
+gb_ina219.c:175:7:ina219_shuntvoltage	24	static
+gb_ina219.c:206:7:ina219_shuntcurrent	168	static
+gb_ina219.c:246:7:ina219_Loadpower	24	static
