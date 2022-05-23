@@ -1,0 +1,9 @@
+gb_dht11.c:17:6:Gpio_input_pushpull_conf_dht11pin	4	static
+gb_dht11.c:27:6:Gpio_outout_pushpull_conf_dht11pin	4	static
+gb_dht11.c:41:6:timer3_init_dht11	4	static
+gb_dht11.c:66:6:GB_dht11_init	8	static
+gb_dht11.c:80:5:GB_dht11_find_response	4	static
+gb_dht11.c:122:5:GB_dht11_receivedht	24	static
+gb_dht11.c:188:6:GB_dht11	8	static
+gb_dht11.c:199:9:GB_dht11_hum	16	static
+gb_dht11.c:205:7:GB_dht11_temp	16	static

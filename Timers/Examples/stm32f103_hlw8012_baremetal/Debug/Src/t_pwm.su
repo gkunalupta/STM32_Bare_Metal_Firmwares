@@ -1,0 +1,2 @@
+t_pwm.c:11:6:T2C1_pin_conf	4	static
+t_pwm.c:42:6:pwm_init	8	static

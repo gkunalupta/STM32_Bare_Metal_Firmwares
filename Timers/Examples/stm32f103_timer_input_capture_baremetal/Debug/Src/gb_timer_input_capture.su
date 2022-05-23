@@ -1,0 +1,3 @@
+gb_timer_input_capture.c:11:6:T4C1_pin_conf	4	static
+gb_timer_input_capture.c:21:6:gb_t4_input_capture	8	static
+gb_timer_input_capture.c:160:5:gb_t4_calculate	4	static

@@ -1,0 +1,6 @@
+core_cm3.h:1480:22:__NVIC_SetPriorityGrouping	24	static
+core_cm3.h:1639:22:__NVIC_SetPriority	16	static
+core_cm3.h:1834:26:SysTick_Config	16	static
+GB_millis_systick.c:15:6:SysTick_Handler	4	static
+GB_millis_systick.c:23:10:GB_millis	4	static
+GB_millis_systick.c:29:6:systick_millis	16	static

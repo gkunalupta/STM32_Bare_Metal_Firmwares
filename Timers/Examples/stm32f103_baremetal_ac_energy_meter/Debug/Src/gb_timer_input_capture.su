@@ -1,0 +1,10 @@
+gb_timer_input_capture.c:12:6:T4C1_pin_conf	4	static
+gb_timer_input_capture.c:22:6:tim4_ch1_capture_config	4	static
+gb_timer_input_capture.c:30:6:tim4_ch1_capture_unconfig	4	static
+gb_timer_input_capture.c:37:6:gb_t4_input_capture	8	static
+gb_timer_input_capture.c:144:5:gb_t4_calculate	4	static
+gb_timer_input_capture.c:159:6:TIM4_IRQHandler	8	static
+gb_timer_input_capture.c:187:7:getPeriod	4	static
+gb_timer_input_capture.c:192:7:getwidth	4	static
+gb_timer_input_capture.c:197:7:getFrequency	4	static
+gb_timer_input_capture.c:203:6:setPeriod	16	static
