@@ -1,0 +1,12 @@
+GB_ESP8266_client.c:39:8:GB_esp8266_connectTCPserver	120	static
+GB_ESP8266_client.c:49:10:GB_esp8266_command	16	static
+GB_ESP8266_client.c:59:16:GB_esp8266_commandint	16	static
+GB_ESP8266_client.c:68:16:GB_esp8266_commandfloat	24	static
+GB_ESP8266_client.c:78:16:GB_esp8266_commandchar	16	static
+GB_ESP8266_client.c:88:8:GB_esp8266_cipsendint	40	static
+GB_ESP8266_client.c:106:8:GB_esp8266_cipsendfloat	40	static
+GB_ESP8266_client.c:124:8:GB_esp8266_cipsendchar	40	static
+GB_ESP8266_client.c:143:8:GB_esp8266_tcpgetcommand	120	static
+GB_ESP8266_client.c:155:8:GB_esp8266_tcpgetcommandint	120	static
+GB_ESP8266_client.c:166:8:GB_esp8266_tcpgetcommandfloat	128	static
+GB_ESP8266_client.c:178:8:GB_esp8266_tcpgetcommandchar	120	static

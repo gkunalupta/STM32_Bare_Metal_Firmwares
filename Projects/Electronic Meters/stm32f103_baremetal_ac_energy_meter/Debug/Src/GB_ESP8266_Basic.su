@@ -1,0 +1,16 @@
+core_cm3.h:1617:26:__NVIC_GetActive	16	static
+GB_ESP8266_Basic.c:26:6:USART2_IRQHandler	8	static
+GB_ESP8266_Basic.c:57:7:GB_getchar_UART2	16	static
+GB_ESP8266_Basic.c:70:6:GB_getstring_UART2	24	static
+GB_ESP8266_Basic.c:88:7:GB_search_buffer	24	static
+GB_ESP8266_Basic.c:97:6:GB_send_command	16	static
+GB_ESP8266_Basic.c:103:5:GB_RFR_UART2	32	static
+GB_ESP8266_Basic.c:167:6:GB_esp8266_getmode	24	static
+GB_ESP8266_Basic.c:193:6:GB_esp8266_connectiontype	24	static
+GB_ESP8266_Basic.c:216:6:GB_esp8266_getAP	40	static
+GB_ESP8266_Basic.c:243:6:GB_esp8266_setAP	72	static
+GB_ESP8266_Basic.c:279:6:GB_esp8266_disconnect	16	static
+GB_ESP8266_Basic.c:288:6:GB_esp8266_IPadress	160	static
+GB_ESP8266_Basic.c:382:6:GB_esp8266_listAP	16	static
+GB_ESP8266_Basic.c:397:6:GB_esp8266_rst	16	static
+GB_ESP8266_Basic.c:405:6:GB_esp8266_initialise_client	8	static
